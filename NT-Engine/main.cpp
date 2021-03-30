@@ -1,4 +1,5 @@
-#include "../NT-Engine/Core/Engine.h"
+
+#include "../Core/NT.h"
 
 int main()
 {
@@ -7,6 +8,10 @@ int main()
 	if (engine.Init(1280, 760))
 	{
 		engine.Run();
+	}
+	else 
+	{
+		std::cout << "Engine Init Error" << std::endl;
 	}
 	
 	engine.ShutDown();

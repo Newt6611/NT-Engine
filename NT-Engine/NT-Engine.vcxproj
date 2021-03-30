@@ -88,12 +88,15 @@
     <ClCompile Include="Core\DisplayServer.cpp" />
     <ClCompile Include="Core\Engine.cpp" />
     <ClCompile Include="Core\InputServer.cpp" />
+    <ClCompile Include="Core\Renderer\Shader.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\DisplayServer.h" />
     <ClInclude Include="Core\Engine.h" />
     <ClInclude Include="Core\InputServer.h" />
+    <ClInclude Include="Core\NT.h" />
+    <ClInclude Include="Core\Renderer\Shader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

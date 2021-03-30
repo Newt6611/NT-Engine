@@ -30,6 +30,9 @@
     <ClCompile Include="Core\InputServer.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="Core\Renderer\Shader.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\DisplayServer.h">
@@ -39,6 +42,12 @@
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="Core\InputServer.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\NT.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Renderer\Shader.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>
