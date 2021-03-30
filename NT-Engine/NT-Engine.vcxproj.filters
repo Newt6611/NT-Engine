@@ -33,6 +33,18 @@
     <ClCompile Include="Core\Renderer\Shader.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="Core\SceneServer.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Scene.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Renderer\Texture2D.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="ThirdParty\stbi_image\stbi_image.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\DisplayServer.h">
@@ -48,6 +60,18 @@
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="Core\Renderer\Shader.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\SceneServer.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Scene.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Renderer\Texture2D.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\stbi_image\stbi_image.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>

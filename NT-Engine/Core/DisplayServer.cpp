@@ -14,6 +14,8 @@ namespace NT {
 
 		if (!InitOpenGL())
 			return false;
+
+		return true;
 	}
 
 	void DisplayServer::ShutDown()
@@ -39,6 +41,7 @@ namespace NT {
 			return false;
 		}
 
+		return true;
 	}
 
 	bool DisplayServer::CreateWindow()

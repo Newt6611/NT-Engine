@@ -3,9 +3,9 @@
 namespace NT {
 	void SceneServer::Init() 
 	{
-		Scene default_scene;
-		current_scene = &default_scene;
-		PushScene(&default_scene);
+		Scene* default_scene = new Scene();
+		current_scene = default_scene;
+		PushScene(default_scene);
 	}
 
 	void SceneServer::ShutDown()
