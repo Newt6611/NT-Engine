@@ -8,29 +8,30 @@
 #include <unordered_map>
 #include <string>
 
+namespace NT {
+	class Shader
+	{
+	public:
+		Shader(const char* vertFile, const char* fragFile, const char* geomeFile);
+		~Shader();
 
-class Shader
-{
-public:
-	Shader(const char* vertFile, const char* fragFile, const char* geomeFile);
-	~Shader();
+		void Bind() const;
+		void UnBind() const;
+		void Compile(const char* vertexCode, const char* fragmentCode, const char* geomeCode);
+		void SetInt(const char* name, int value);
+		void SetInt(const char* name, int count, int* value);
+		void SetFloat(const char* name, float value);
+		void SetVector2(const char* name, glm::vec2 value);
+		void SetVector3(const char* name, glm::vec3 value);
+		void SetVector4(const char* name, glm::vec4 value);
+		void SetMatrix4(const char* name, glm::mat4 value);
 
-	void Bind() const;
-	void UnBind() const;
-	void Compile(const char* vertexCode, const char* fragmentCode, const char* geomeCode);
-	void SetInt(const char* name, int value);
-	void SetInt(const char* name, int count, int* value);
-	void SetFloat(const char* name, float value);
-	void SetVector2(const char* name, glm::vec2 value);
-	void SetVector3(const char* name, glm::vec3 value);
-	void SetVector4(const char* name, glm::vec4 value);
-	void SetMatrix4(const char* name, glm::mat4 value);
+	private:
+		unsigned int m_Id;
 
-private:
-	unsigned int m_Id;
+		void CheckCompileError(unsigned int object, std::string type);
 
-	void CheckCompileError(unsigned int object, std::string type);
-	
-	std::unordered_map<std::string, unsigned int> uniformCache;
-	unsigned int GetUniformCache(std::string name);
-};
+		std::unordered_map<std::string, unsigned int> uniformCache;
+		unsigned int GetUniformCache(std::string name);
+	};
+}

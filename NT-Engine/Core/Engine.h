@@ -2,8 +2,10 @@
 
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
+
 #include "DisplayServer.h"
 #include "InputServer.h"
+#include "SceneServer.h"
 
 namespace NT {
 
@@ -19,7 +21,10 @@ namespace NT {
 		static bool window_close;
 
 	private:
+		float last_time;
+
 		DisplayServer display_server;
 		InputServer input_server;
+		SceneServer scene_server;
 	};
 }

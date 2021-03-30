@@ -14,6 +14,8 @@ namespace NT {
 		if (!input_server.Init(display_server.window))
 			return false;
 
+		scene_server.Init();
+
 		window_close = false;
 
 		return true;
@@ -26,7 +28,13 @@ namespace NT {
 			glClearColor(0, 0, 0, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 
+			float current_time = glfwGetTime();
+			float delta = current_time - last_time;
+			last_time = current_time;
 
+			scene_server.Update(delta);
+
+			scene_server.Render();
 
 			glfwSwapBuffers(display_server.window);
 			glfwPollEvents();
@@ -35,8 +43,10 @@ namespace NT {
 
 	void Engine::ShutDown()
 	{
+		glfwTerminate();
+
 		display_server.ShutDown();
 		input_server.ShutDown();
-		glfwTerminate();
+		scene_server.ShutDown();
 	}
 }
