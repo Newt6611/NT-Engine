@@ -45,6 +45,15 @@
     <ClCompile Include="ThirdParty\stbi_image\stbi_image.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="Core\RenderServer.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Renderer\Mesh.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Camera.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\DisplayServer.h">
@@ -74,5 +83,18 @@
     <ClInclude Include="ThirdParty\stbi_image\stbi_image.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
+    <ClInclude Include="Core\RenderServer.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Renderer\Mesh.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Camera.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\Shader\normal.vert.glsl" />
+    <None Include="res\Shader\normal.frag.glsl" />
   </ItemGroup>
 </Project>
