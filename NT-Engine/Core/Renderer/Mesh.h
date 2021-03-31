@@ -1,11 +1,11 @@
 #pragma once
 
-
-#include "NT.h"
+#include "glad/glad.h"
 
 #include "glm/glm.hpp"
 
 #include <vector>
+#include <iostream>
 
 namespace NT {
 
@@ -18,14 +18,14 @@ namespace NT {
 	class Mesh 
 	{
 	public:
-		inline void SetVertices(std::vector<Vertex> v) { this->m_Vertices = v; }
-		inline void SetIndices(std::vector<unsigned int> i) { this->m_indices = i; }
+		Mesh() {}
+		inline void SetVertices(std::vector<Vertex>& v) { this->m_Vertices = v; }
+		inline void SetIndices(std::vector<unsigned int>& i) { this->m_Indices = i; }
 
 		void SetUp();
 		void Draw();
 
 	private:
-		Mesh();
 
 		unsigned int vao, vbo, ibo;
 

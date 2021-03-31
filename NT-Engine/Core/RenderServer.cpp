@@ -1,10 +1,16 @@
 #include "RenderServer.h"
 
 namespace NT {
+    RenderServer* RenderServer::m_Instance = new RenderServer();
 
-	bool RenderServer::Init()
+    RenderServer& RenderServer::GetInstance()
+    {
+        return *m_Instance;
+    }
+
+
+    void RenderServer::Init()
 	{
-		return false;
 	}
 
 	void RenderServer::ShutDown()
@@ -16,22 +22,84 @@ namespace NT {
 		}
 	}
 
-	Shader& RenderServer::CreateShader(const char* vertexFile, const char* fragmentFile, const char* geometryFile = NULL)
-	{
-		Shader shader(vertexFile, fragmentFile, geometryFile);
-		return shader;
-	}
 
-	Texture& RenderServer::CreateTexture(const char* fileName, TextureInfo texInfo)
-	{
-		Texture texture(fileName, texInfo);
-		return texture;
-	}
+    bool RenderServer::CreateShader(Shader& shader, const char* vertexFile, const char* fragmentFile, const char* geometryFile)
+    {
+        shader.Generate(vertexFile, fragmentFile, geometryFile);
+        return true;
+    }
 
-	Mesh* RenderServer::CreateCube()
-	{
+    bool RenderServer::CreateTexture(Texture& texture, const char* fileName, TextureInfo texInfo)
+    {
+        texture.Generate(fileName, texInfo);
+        return true;
+    }
 
-		return nullptr;
+    Mesh* RenderServer::CreateCube()
+	{
+        ///////////////
+        /// For Test //
+        ///////////////
+        
+        float vertices[] = {
+            -1.0f, -1.0f, -1.0f,
+            -1.0f, -1.0f,  1.0f,
+            -1.0f,  1.0f,  1.0f,
+            1.0f, 1.0f,-1.0f, 
+            -1.0f,-1.0f,-1.0f,
+            -1.0f, 1.0f,-1.0f,
+            1.0f,-1.0f, 1.0f, 
+            -1.0f,-1.0f,-1.0f,
+            1.0f,-1.0f,-1.0f, 
+            1.0f, 1.0f,-1.0f, 
+            1.0f,-1.0f,-1.0f, 
+            -1.0f,-1.0f,-1.0f,
+            -1.0f,-1.0f,-1.0f,
+            -1.0f, 1.0f, 1.0f,
+            -1.0f, 1.0f,-1.0f,
+            1.0f,-1.0f, 1.0f, 
+            -1.0f,-1.0f, 1.0f,
+            -1.0f,-1.0f,-1.0f,
+            -1.0f, 1.0f, 1.0f,
+            -1.0f,-1.0f, 1.0f,
+            1.0f,-1.0f, 1.0f, 
+            1.0f, 1.0f, 1.0f, 
+            1.0f,-1.0f,-1.0f, 
+            1.0f, 1.0f,-1.0f, 
+            1.0f,-1.0f,-1.0f, 
+            1.0f, 1.0f, 1.0f, 
+            1.0f,-1.0f, 1.0f, 
+            1.0f, 1.0f, 1.0f, 
+            1.0f, 1.0f,-1.0f, 
+            -1.0f, 1.0f,-1.0f,
+            1.0f, 1.0f, 1.0f, 
+            -1.0f, 1.0f,-1.0f,
+            -1.0f, 1.0f, 1.0f,
+            1.0f, 1.0f, 1.0f, 
+            -1.0f, 1.0f, 1.0f,
+            1.0f,-1.0f, 1.0f
+        };
+
+        std::vector<Vertex> vertexs;
+
+        for (int i = 0; i < 36*3; i+=3)
+        {
+            Vertex vertex;
+            glm::vec3 v;
+            v.x = vertices[i];
+            v.y = vertices[i + 1];
+            v.z = vertices[i + 2];
+            vertex.Position = v;
+            vertex.Normal = glm::vec3(0);
+            vertexs.push_back(vertex);
+        }
+
+
+        Mesh* m = new Mesh();
+        m->SetVertices(vertexs);
+        m->SetUp();
+        meshs.push_back(m);
+		return m;
 	}
 }
 

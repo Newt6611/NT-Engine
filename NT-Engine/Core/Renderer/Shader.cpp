@@ -5,7 +5,8 @@
 #include <iostream>
 
 namespace NT {
-	Shader::Shader(const char* vertFile, const char* fragFile, const char* geomeFile = NULL)
+
+	void Shader::Generate(const char* vertFile, const char* fragFile, const char* geomeFile)
 	{
 		std::string vertCode, fragCode, geomeCode;
 

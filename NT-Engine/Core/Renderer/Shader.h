@@ -12,8 +12,10 @@ namespace NT {
 	class Shader
 	{
 	public:
-		Shader(const char* vertFile, const char* fragFile, const char* geomeFile);
+		Shader() = default;
 		~Shader();
+
+		void Generate(const char* vertFile, const char* fragFile, const char* geomeFile);
 
 		void Bind() const;
 		void UnBind() const;

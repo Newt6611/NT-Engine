@@ -2,16 +2,27 @@
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
+class InputServer;
 
 namespace NT {
 
 	class Camera 
 	{
 	public:
+		Camera() = default;
 		Camera(glm::vec3 position, glm::vec3 target);
 		Camera(glm::vec3 position, float pitch, float yaw);
+		~Camera() {}
 
 		glm::mat4 GetViewMatrix() const;
+
+		void ProcessCursorMovement(float deltaX, float deltaY);
+
+		void Update(float ts);
+
+	private:
+		void UpdateCameraVector();
+
 
 	public:
 		glm::vec3 position;
@@ -21,6 +32,6 @@ namespace NT {
 
 	private:
 		glm::vec3 m_Forward;
-
+		float yaw, pitch;
 	};
 }

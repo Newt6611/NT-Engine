@@ -6,6 +6,8 @@
 #include "DisplayServer.h"
 #include "InputServer.h"
 #include "SceneServer.h"
+#include "RenderServer.h"
+#include "Camera.h"
 
 namespace NT {
 
@@ -26,5 +28,14 @@ namespace NT {
 		DisplayServer display_server;
 		InputServer input_server;
 		SceneServer scene_server;
+		RenderServer render_server;
+
+
+	private:
+		// Test Cube
+		Camera camera;
+		Mesh* cube;
+		Shader shader;
+		glm::mat4 projection;
 	};
 }

@@ -3,30 +3,29 @@
 #include "Renderer/Shader.h"
 #include "Renderer/Texture2D.h"
 #include "Renderer/Mesh.h"
+#include "Camera.h"
 
 namespace NT {
 
 	class RenderServer 
 	{
 	public:
+		RenderServer() = default;
 		RenderServer(const RenderServer&) = delete;
-		static RenderServer& Instance() { return m_Instance; }
+		static RenderServer& GetInstance();
 
-		bool Init();
+		void Init();
 		void ShutDown();
 
-		Shader& CreateShader(const char* vertexFile, const char* fragmentFile, const char* geometryFile);
-		Texture& CreateTexture(const char* fileName, TextureInfo texInfo);
+
+		bool CreateShader(Shader& shader, const char* vertexFile, const char* fragmentFile, const char* geometryFile);
+		bool CreateTexture(Texture& texture, const char* fileName, TextureInfo texInfo);
 
 		Mesh* CreateCube();
 
 
-
 	private:
-		RenderServer() {}
-		static RenderServer m_Instance;
-
-
+		static RenderServer* m_Instance;
 
 		std::vector<Mesh*> meshs;
 	};

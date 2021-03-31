@@ -20,8 +20,10 @@ struct TextureInfo
 class Texture
 {
 public:
-	Texture(const char* name, TextureInfo info);
+	Texture() = default;
 	~Texture();
+
+	void Generate(const char* fileName, TextureInfo texInfo);
 	void Bind(unsigned int slot = 0) const;
 
 	inline unsigned int GetWidth() { return m_Width; }
