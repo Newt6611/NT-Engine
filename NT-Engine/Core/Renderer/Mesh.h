@@ -18,7 +18,7 @@ namespace NT {
 	class Mesh 
 	{
 	public:
-		Mesh() {}
+		Mesh() = default;
 		inline void SetVertices(std::vector<Vertex>& v) { this->m_Vertices = v; }
 		inline void SetIndices(std::vector<unsigned int>& i) { this->m_Indices = i; }
 
@@ -26,7 +26,6 @@ namespace NT {
 		void Draw();
 
 	private:
-
 		unsigned int vao, vbo, ibo;
 
 		std::vector<Vertex> m_Vertices;

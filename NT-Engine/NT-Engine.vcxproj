@@ -89,6 +89,7 @@
     <ClCompile Include="Core\DisplayServer.cpp" />
     <ClCompile Include="Core\Engine.cpp" />
     <ClCompile Include="Core\InputServer.cpp" />
+    <ClCompile Include="Core\Renderer\Material.cpp" />
     <ClCompile Include="Core\Renderer\Mesh.cpp" />
     <ClCompile Include="Core\Renderer\Shader.cpp" />
     <ClCompile Include="Core\Renderer\Texture2D.cpp" />
@@ -104,6 +105,7 @@
     <ClInclude Include="Core\Engine.h" />
     <ClInclude Include="Core\InputServer.h" />
     <ClInclude Include="Core\NT.h" />
+    <ClInclude Include="Core\Renderer\Material.h" />
     <ClInclude Include="Core\Renderer\Mesh.h" />
     <ClInclude Include="Core\Renderer\Shader.h" />
     <ClInclude Include="Core\Renderer\Texture2D.h" />
@@ -113,8 +115,8 @@
     <ClInclude Include="ThirdParty\stbi_image\stbi_image.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\Shader\normal.frag.glsl" />
-    <None Include="res\Shader\normal.vert.glsl" />
+    <None Include="res\Shader\default.frag.glsl" />
+    <None Include="res\Shader\default.vert.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

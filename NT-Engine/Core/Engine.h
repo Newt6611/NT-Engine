@@ -8,6 +8,7 @@
 #include "SceneServer.h"
 #include "RenderServer.h"
 #include "Camera.h"
+#include "Renderer/Material.h"
 
 namespace NT {
 
@@ -32,10 +33,12 @@ namespace NT {
 
 
 	private:
-		// Test Cube
 		Camera camera;
+
+		// Test Cube
 		Mesh* cube;
 		Shader shader;
+		Material material;
 		glm::mat4 projection;
 	};
 }

@@ -11,6 +11,7 @@ namespace NT {
 
 		this->right = glm::normalize(glm::cross(m_Forward, world_up));
 		this->up = glm::normalize(glm::cross(m_Forward, right));
+
 	}
 
 	Camera::Camera(glm::vec3 position, float pitch, float yaw)
@@ -30,13 +31,25 @@ namespace NT {
 
 	void Camera::Update(float ts)
 	{
-		ProcessCursorMovement(Input::GetMouseDeltaX() * ts, Input::GetMouseDeltaY() * ts);
+		if (Input::GetKey(GLFW_KEY_W))
+			position += this->m_Forward * 5.f * ts;
+		if (Input::GetKey(GLFW_KEY_S))
+			this->position -= this->m_Forward * 5.f * ts;
+		if (Input::GetKey(GLFW_KEY_D))
+			this->position += this->right * 5.f * ts;
+		if (Input::GetKey(GLFW_KEY_A))
+			this->position -= this->right * 5.f * ts;
+
+		if (Input::GetKey(GLFW_KEY_LEFT_SHIFT))
+			this->position += this->up * 6.f * ts;
+		if (Input::GetKey(GLFW_KEY_SPACE))
+			this->position -= this->up * 6.f * ts;
 	}
 
 	void Camera::ProcessCursorMovement(float deltaX, float deltaY)
 	{
-		this->pitch += deltaY * 0.1f;
-		this->yaw += deltaX * 0.1f;
+		this->pitch -= deltaY * 0.003f;
+		this->yaw -= deltaX * 0.003f;
 		UpdateCameraVector();
 	}
 

@@ -2,6 +2,7 @@
 
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
+#include "Camera.h"
 
 class Engine;
 
@@ -9,7 +10,7 @@ namespace NT {
 	class InputServer
 	{
 	public:
-		void Init(GLFWwindow* window);
+		void Init(GLFWwindow* window, Camera* viewCamera);
 		void ShutDown();
 
 	private:
@@ -17,6 +18,7 @@ namespace NT {
 		static void MousePositionCallBack(GLFWwindow* window, double xPos, double yPos);
 
 	private:
+		static Camera* viewCamera;
 		static double lastX, lastY;
 		static bool firstMouse;
 
@@ -27,10 +29,12 @@ namespace NT {
 	public:
 		inline static float GetMouseDeltaX() { return mouseDeltaX; }
 		inline static float GetMouseDeltaY() { return mouseDeltaY; }
-
+		static bool GetKey(unsigned int key);
+		static bool GetKeyDown(unsigned int key);
 	private:
 		static float mouseDeltaX, mouseDeltaY;
-
+		static bool keys[1024];
+		static bool keyUp[1024];
 		friend class InputServer;
 	};
 }

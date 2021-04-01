@@ -6,11 +6,17 @@ namespace NT {
 
 	bool Engine::Init(unsigned int width, unsigned int height)
 	{
+		// Todo: Make Camera More Scence //
+		camera = Camera({ 0,0,10 }, 0, 180);
+		
+
+
+
 		// Init Servers
 		if (!display_server.Init(width, height))
 			return false;
 
-		input_server.Init(display_server.window);
+		input_server.Init(display_server.window, &camera);
 
 		scene_server.Init();
 
@@ -19,21 +25,24 @@ namespace NT {
 		window_close = false;
 
 
-		// Test //
-		camera = Camera( { 0,0,10 }, 0, 180);
+		// Test
 		cube = render_server.CreateCube();
-		render_server.CreateShader(shader, "res/Shader/normal.vert.glsl", "res/Shader/normal.frag.glsl", NULL);
+		render_server.CreateShader(shader, "res/Shader/default.vert.glsl", "res/Shader/default.frag.glsl", NULL);
 		projection = glm::perspective(glm::radians(45.0f), (float)display_server.GetWindowWidth() / display_server.GetWindowHeight(), 0.1f, 100.0f);
-
+		material.albedo = {0.5,0,0};
+		material.diffuse = { 0.5,0.0,0.0 };
+		material.specular = { 0.7,0.6,0.6 };
 		return true;
 	}
 
 	void Engine::Run()
 	{
+		glEnable(GL_DEPTH_TEST);
+		
 		while (!window_close)
 		{
 			glClearColor(0, 0, 0, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			float current_time = glfwGetTime();
 			float delta = current_time - last_time;
@@ -54,7 +63,15 @@ namespace NT {
 			shader.SetMatrix4("projection", projection);
 			shader.SetMatrix4("view", camera.GetViewMatrix());
 			shader.SetMatrix4("model", glm::mat4(1));
-			
+
+			shader.SetVector3("viewPos", camera.GetPosition());
+			shader.SetVector3("lightColor", { 1,1,1 });
+			shader.SetVector3("lightDir", { 1, 1, -1 });
+
+			shader.SetVector3("material.albedo", material.albedo);
+			shader.SetVector3("material.diffuse", material.diffuse);
+			shader.SetVector3("material.specular", material.specular);
+			shader.SetFloat("material.shininess", material.shininess);
 			cube->Draw();
 
 

@@ -20,6 +20,7 @@ namespace NT {
 
 		void Update(float ts);
 
+		inline glm::vec3 GetPosition() { return position; }
 	private:
 		void UpdateCameraVector();
 

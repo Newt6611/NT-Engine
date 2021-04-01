@@ -4,14 +4,19 @@
 
 namespace NT {
 	// InputServer Class
+	Camera* InputServer::viewCamera;
 	bool InputServer::firstMouse;
 	double InputServer::lastX;
 	double InputServer::lastY;
 
-	void InputServer::Init(GLFWwindow* window)
+	void InputServer::Init(GLFWwindow* window, Camera* viewCamera)
 	{
 		glfwSetKeyCallback(window, InputServer::KeyCallBack);
 		glfwSetCursorPosCallback(window, InputServer::MousePositionCallBack);
+
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+		this->viewCamera = viewCamera;
 
 		firstMouse = true;
 	}
@@ -25,6 +30,16 @@ namespace NT {
 	{
 		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 			Engine::window_close = true;
+
+		if (key >= 0 && key <= 1024 && action == GLFW_PRESS)
+			Input::keys[key] = true;
+
+		if (key >= 0 && key <= 1024 && action == GLFW_RELEASE)
+		{
+			Input::keys[key] = false;
+			Input::keyUp[key] = false;
+		}
+
 	}
 	void InputServer::MousePositionCallBack(GLFWwindow* window, double xPos, double yPos)
 	{
@@ -39,8 +54,7 @@ namespace NT {
 		deltaX = xPos - lastX;
 		deltaY = yPos - lastY;
 
-		Input::mouseDeltaX = deltaX;
-		Input::mouseDeltaX = deltaY;
+		viewCamera->ProcessCursorMovement(deltaX, deltaY);
 		
 		lastX = xPos;
 		lastY = yPos;
@@ -50,4 +64,22 @@ namespace NT {
 	// Ipnut Class
 	float Input::mouseDeltaX;
 	float Input::mouseDeltaY;
+	bool Input::keys[1024];
+	bool Input::keyUp[1024];
+
+	bool Input::GetKey(unsigned int key)
+	{
+		return keys[key];
+	}
+
+	bool Input::GetKeyDown(unsigned int key)
+	{
+		if (!keyUp[key] && keys[key])
+		{
+			keyUp[key] = true;
+			return true;
+		}
+		else
+			return false;
+	}
 }
