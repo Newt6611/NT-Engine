@@ -2,7 +2,7 @@
 
 Texture::~Texture()
 {
-	glDeleteTextures(1, &id);
+	//glDeleteTextures(1, &id);
 }
 
 void Texture::Generate(const char* fileName, TextureInfo texInfo)
@@ -49,5 +49,4 @@ void Texture::Bind(unsigned int slot = 0) const
 {
 	glActiveTexture(GL_TEXTURE0 + slot);
 	glBindTexture(GL_TEXTURE_2D, id);
-	std::cout << glGetError() << std::endl;
 }

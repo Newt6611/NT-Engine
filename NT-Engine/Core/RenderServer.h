@@ -4,6 +4,7 @@
 #include "Renderer/Texture2D.h"
 #include "Renderer/Mesh.h"
 #include "Camera.h"
+#include "Renderer/Model.h"
 
 namespace NT {
 
@@ -21,13 +22,16 @@ namespace NT {
 		bool CreateShader(Shader& shader, const char* vertexFile, const char* fragmentFile, const char* geometryFile);
 		bool CreateTexture(Texture& texture, const char* fileName, TextureInfo texInfo);
 
-		Mesh* CreateCube();
-
+		Model* CreateCube();
+		Model* CreateSphere();
+		Model* CreatePlane();
 
 	private:
 		static RenderServer* m_Instance;
 
-		std::vector<Mesh*> meshs;
+		Model* cube;
+		Model* sphere;
+		Model* plane;
 	};
 
 }

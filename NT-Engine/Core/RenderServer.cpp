@@ -11,16 +11,17 @@ namespace NT {
 
     void RenderServer::Init()
 	{
+        cube = new Model("res/Model/cube/cube.obj", false);
+        sphere = new Model("res/Model/sphere/sphere.obj", false);
+        plane = new Model("res/Model/plane/plane.obj", false);
 	}
 
 	void RenderServer::ShutDown()
 	{
-		if (meshs.size() != 0)
-		{
-			for (int i = 0; i < meshs.size(); i++)
-				delete meshs[i];
-		}
-	}
+        delete cube;
+        delete sphere;
+        delete plane;
+    }
 
 
     bool RenderServer::CreateShader(Shader& shader, const char* vertexFile, const char* fragmentFile, const char* geometryFile)
@@ -35,9 +36,19 @@ namespace NT {
         return true;
     }
 
-    Mesh* RenderServer::CreateCube()
-	{
-        return nullptr;
-	}
+    Model* RenderServer::CreateCube()
+    {
+        return cube;
+    }
+
+    Model* RenderServer::CreateSphere()
+    {
+        return sphere;
+    }
+
+    Model* RenderServer::CreatePlane()
+    {
+        return plane;
+    }
 }
 

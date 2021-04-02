@@ -26,7 +26,9 @@ namespace NT {
 
 
 		// Test
-		backpack = new Model("res/Model/backpack/backpack.obj", false);
+		sphere = render_server.CreateSphere();
+		TextureInfo info;
+		wood.Generate("res/Texture/wood.png", info);
 		render_server.CreateShader(shader, "res/Shader/default.vert.glsl", "res/Shader/default.frag.glsl", NULL);
 		projection = glm::perspective(glm::radians(45.0f), (float)display_server.GetWindowWidth() / display_server.GetWindowHeight(), 0.1f, 100.0f);
 		material.albedo = {0.5,0,0};
@@ -69,8 +71,10 @@ namespace NT {
 			shader.SetVector3("material.diffuse", material.diffuse);
 			shader.SetVector3("material.specular", material.specular);
 			shader.SetFloat("material.shininess", material.shininess);
+			
+			sphere->Draw(shader);
 
-			backpack->Draw(shader);
+
 
 			glfwSwapBuffers(display_server.window);
 			glfwPollEvents();
@@ -79,7 +83,6 @@ namespace NT {
 
 	void Engine::ShutDown()
 	{
-		delete backpack;
 		glfwTerminate();
 
 		display_server.ShutDown();

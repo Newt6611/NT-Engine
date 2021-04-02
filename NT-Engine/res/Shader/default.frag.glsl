@@ -37,11 +37,12 @@ void main()
 	float diff = max(dot(Normal, normalize(lightDir)), 0);
 	vec3 diffuse = diff * material.diffuse * lightColor;
 
-	float spec = pow(max(dot(viewDir, lightRefl), 0), material.shininess);
+
+	vec3 halfWay = normalize(lightDir + viewDir);
+	float spec = pow(max(dot(Normal, halfWay), 0), material.shininess);
 	vec3 specular = spec * material.specular * lightColor;
 
 	vec4 result = vec4(ambient + diffuse + specular, 1);
 
-	FragColor = vec4(Normal, 1);
-	//FragColor = texture(texture_diffuse1, TexCoords);
+	FragColor = result + texture(texture_diffuse1, TexCoords);
 }
