@@ -3,52 +3,77 @@
 
 namespace NT {
 
+    Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures)
+    {
+        this->m_Vertices = vertices;
+        this->m_Indices = indices;
+        this->m_Textures = textures;
+
+        SetUp();
+    }
+
 	void Mesh::SetUp()
 	{
-		if (m_Vertices.size() == 0)
-		{
-			std::cout << "You Need Init Data First !";
-			return;
-		}
+        glGenVertexArrays(1, &m_Vao);
+        glGenBuffers(1, &m_Vbo);
+        glGenBuffers(1, &m_Ibo);
 
-		glGenVertexArrays(1, &vao);
-		glBindVertexArray(vao);
+        glBindVertexArray(m_Vao);
+    
+        glBindBuffer(GL_ARRAY_BUFFER, m_Vbo);
+        glBufferData(GL_ARRAY_BUFFER, m_Vertices.size() * sizeof(Vertex), &m_Vertices[0], GL_STATIC_DRAW);
 
-		glGenBuffers(1, &vbo);
-		glBindBuffer(GL_ARRAY_BUFFER, vbo);
-		glBufferData(GL_ARRAY_BUFFER, m_Vertices.size() * sizeof(Vertex), &m_Vertices[0], GL_STATIC_DRAW);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Ibo);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_Indices.size() * sizeof(unsigned int), &m_Indices[0], GL_STATIC_DRAW);
 
-		// Positions
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
-		
-		// Normals
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex,Normal));
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+        
+        glEnableVertexAttribArray(1);
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
 
+        glEnableVertexAttribArray(2);
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
 
-		// Indices
-		if (m_Indices.size() != 0)
-		{
-			glGenBuffers(1, &ibo);
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-			glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_Indices.size() * sizeof(unsigned int), &m_Indices[0], GL_STATIC_DRAW);
-		}
+        glEnableVertexAttribArray(3);
+        glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Tangent));
 
-		glBindVertexArray(0);
+        glEnableVertexAttribArray(4);
+        glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Bitangent));
+
+        glBindVertexArray(0);
 	}
 
-	void Mesh::Draw()
+	void Mesh::Draw(Shader& shader)
 	{
-		glBindVertexArray(vao);
+        unsigned int diffuseNr = 1;
+        unsigned int specularNr = 1;
+        unsigned int normalNr = 1;
+        unsigned int heightNr = 1;
+        for (unsigned int i = 0; i < m_Textures.size(); i++)
+        {
+            //glActiveTexture(GL_TEXTURE0 + i); 
 
-		if (ibo != 0)
-		{
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-			glDrawElements(GL_TRIANGLES, m_Indices.size(), GL_UNSIGNED_INT, 0);
-		}
-		else
-			glDrawArrays(GL_TRIANGLES, 0, m_Vertices.size());
+            std::string number;
+            std::string name = m_Textures[i].type;
+            if (name == "texture_diffuse")
+                number = std::to_string(diffuseNr++);
+            else if (name == "texture_specular")
+                number = std::to_string(specularNr++); 
+            else if (name == "texture_normal")
+                number = std::to_string(normalNr++); 
+            else if (name == "texture_height")
+                number = std::to_string(heightNr++); 
 
+            shader.SetInt((name + number).c_str(), i);
+
+            m_Textures[i].Bind(i);
+            //glBindTexture(GL_TEXTURE_2D, m_Textures[i].id);
+        }
+        glBindVertexArray(m_Vao);
+        glDrawElements(GL_TRIANGLES, m_Indices.size(), GL_UNSIGNED_INT, 0);
+        glBindVertexArray(0);
+
+        glActiveTexture(GL_TEXTURE0);
 	}
 }

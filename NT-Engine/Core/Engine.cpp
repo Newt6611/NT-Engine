@@ -26,7 +26,7 @@ namespace NT {
 
 
 		// Test
-		cube = render_server.CreateCube();
+		backpack = new Model("res/Model/backpack/backpack.obj", false);
 		render_server.CreateShader(shader, "res/Shader/default.vert.glsl", "res/Shader/default.frag.glsl", NULL);
 		projection = glm::perspective(glm::radians(45.0f), (float)display_server.GetWindowWidth() / display_server.GetWindowHeight(), 0.1f, 100.0f);
 		material.albedo = {0.5,0,0};
@@ -54,8 +54,6 @@ namespace NT {
 
 
 
-
-
 			// Render Test
 			camera.Update(delta);
 
@@ -67,17 +65,12 @@ namespace NT {
 			shader.SetVector3("viewPos", camera.GetPosition());
 			shader.SetVector3("lightColor", { 1,1,1 });
 			shader.SetVector3("lightDir", { 1, 1, -1 });
-
 			shader.SetVector3("material.albedo", material.albedo);
 			shader.SetVector3("material.diffuse", material.diffuse);
 			shader.SetVector3("material.specular", material.specular);
 			shader.SetFloat("material.shininess", material.shininess);
-			cube->Draw();
 
-
-
-
-
+			backpack->Draw(shader);
 
 			glfwSwapBuffers(display_server.window);
 			glfwPollEvents();
@@ -86,6 +79,7 @@ namespace NT {
 
 	void Engine::ShutDown()
 	{
+		delete backpack;
 		glfwTerminate();
 
 		display_server.ShutDown();

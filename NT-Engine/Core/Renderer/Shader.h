@@ -21,7 +21,6 @@ namespace NT {
 		void UnBind() const;
 		void Compile(const char* vertexCode, const char* fragmentCode, const char* geomeCode);
 		void SetInt(const char* name, int value);
-		void SetInt(const char* name, int count, int* value);
 		void SetFloat(const char* name, float value);
 		void SetVector2(const char* name, glm::vec2 value);
 		void SetVector3(const char* name, glm::vec3 value);

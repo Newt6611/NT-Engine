@@ -1,5 +1,12 @@
 #version 450 core
 
+
+in vec3 Normal;
+in vec3 FragPos;
+in vec2 TexCoords;
+
+
+
 struct Material {
 	vec3 albedo;
 	vec3 diffuse;
@@ -15,8 +22,9 @@ uniform vec3 viewPos;
 uniform vec3 lightColor;
 uniform vec3 lightDir;
 
-in vec3 Normal;
-in vec3 FragPos;
+uniform sampler2D texture_diffuse1;
+uniform sampler2D texture_specular1;
+uniform sampler2D texture_normal1;
 
 out vec4 FragColor;
 
@@ -36,6 +44,5 @@ void main()
 
 	vec4 result = vec4(ambient + diffuse + specular, 1);
 
-	//FragColor = vec4(Normal,1);
-	FragColor = result;
+	FragColor = texture(texture_diffuse1, TexCoords);
 }

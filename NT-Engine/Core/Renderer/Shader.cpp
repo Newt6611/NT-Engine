@@ -64,11 +64,6 @@ namespace NT {
 		glUniform1i(GetUniformCache(name), value);
 	}
 
-	void Shader::SetInt(const char* name, int count, int* value)
-	{
-		glUniform1iv(GetUniformCache(name), count, value);
-	}
-
 	void Shader::SetFloat(const char* name, float value)
 	{
 		glUniform1f(GetUniformCache(name), value);

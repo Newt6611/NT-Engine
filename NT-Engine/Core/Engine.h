@@ -9,6 +9,7 @@
 #include "RenderServer.h"
 #include "Camera.h"
 #include "Renderer/Material.h"
+#include "Renderer/Model.h"
 
 namespace NT {
 
@@ -36,7 +37,7 @@ namespace NT {
 		Camera camera;
 
 		// Test Cube
-		Mesh* cube;
+		Model* backpack;
 		Shader shader;
 		Material material;
 		glm::mat4 projection;
