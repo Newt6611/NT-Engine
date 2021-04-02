@@ -23,8 +23,6 @@ uniform vec3 lightColor;
 uniform vec3 lightDir;
 
 uniform sampler2D texture_diffuse1;
-uniform sampler2D texture_specular1;
-uniform sampler2D texture_normal1;
 
 out vec4 FragColor;
 
@@ -44,5 +42,6 @@ void main()
 
 	vec4 result = vec4(ambient + diffuse + specular, 1);
 
-	FragColor = texture(texture_diffuse1, TexCoords);
+	FragColor = vec4(Normal, 1);
+	//FragColor = texture(texture_diffuse1, TexCoords);
 }

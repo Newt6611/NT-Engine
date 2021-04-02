@@ -52,8 +52,6 @@ namespace NT {
         unsigned int heightNr = 1;
         for (unsigned int i = 0; i < m_Textures.size(); i++)
         {
-            //glActiveTexture(GL_TEXTURE0 + i); 
-
             std::string number;
             std::string name = m_Textures[i].type;
             if (name == "texture_diffuse")
@@ -65,10 +63,10 @@ namespace NT {
             else if (name == "texture_height")
                 number = std::to_string(heightNr++); 
 
+
             shader.SetInt((name + number).c_str(), i);
 
             m_Textures[i].Bind(i);
-            //glBindTexture(GL_TEXTURE_2D, m_Textures[i].id);
         }
         glBindVertexArray(m_Vao);
         glDrawElements(GL_TRIANGLES, m_Indices.size(), GL_UNSIGNED_INT, 0);
