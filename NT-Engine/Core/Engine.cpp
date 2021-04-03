@@ -28,15 +28,16 @@ namespace NT {
 		// Test
 		sphere = render_server.CreateSphere();
 		TextureInfo info;
-		wood.Generate("res/Texture/wood.png", info);
+		wall.Generate("res/Texture/brickwall.jpg", info);
+		wall_normal.Generate("res/Texture/brickwall_normal.jpg", info);
+
 		render_server.CreateShader(shader, "res/Shader/default.vert.glsl", "res/Shader/default.frag.glsl", NULL);
 		projection = glm::perspective(glm::radians(45.0f), (float)display_server.GetWindowWidth() / display_server.GetWindowHeight(), 0.1f, 100.0f);
-		material.albedo = {0.5,0,0};
-		material.diffuse = { 0.5,0.0,0.0 };
-		material.specular = { 0.7,0.6,0.6 };
+
 		return true;
 	}
 
+	float r = 0;
 	void Engine::Run()
 	{
 		glEnable(GL_DEPTH_TEST);
@@ -57,23 +58,27 @@ namespace NT {
 
 
 			// Render Test
+			r += 1 * delta;
 			camera.Update(delta);
 
 			shader.Bind();
 			shader.SetMatrix4("projection", projection);
 			shader.SetMatrix4("view", camera.GetViewMatrix());
-			shader.SetMatrix4("model", glm::mat4(1));
+			glm::mat4 model = glm::rotate(glm::mat4(1), r, glm::vec3(0,1,0));
+			shader.SetMatrix4("model", model);
 
 			shader.SetVector3("viewPos", camera.GetPosition());
 			shader.SetVector3("lightColor", { 1,1,1 });
-			shader.SetVector3("lightDir", { 1, 1, -1 });
-			shader.SetVector3("material.albedo", material.albedo);
-			shader.SetVector3("material.diffuse", material.diffuse);
-			shader.SetVector3("material.specular", material.specular);
-			shader.SetFloat("material.shininess", material.shininess);
-			
-			sphere->Draw(shader);
+			shader.SetVector3("lightDir", { 1, 1, 0});
 
+			shader.SetFloat("material.shininess", material.shininess);
+			shader.SetInt("material.texture_diffuse1", 0);
+			shader.SetInt("material.texture_normal1", 1);
+			
+			wall.Bind(0);
+			wall_normal.Bind(1);
+
+			sphere->Draw(shader);
 
 
 			glfwSwapBuffers(display_server.window);

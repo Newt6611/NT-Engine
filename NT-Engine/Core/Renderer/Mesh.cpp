@@ -64,7 +64,7 @@ namespace NT {
                 number = std::to_string(heightNr++); 
 
 
-            shader.SetInt((name + number).c_str(), i);
+            shader.SetInt(("material." + name + number).c_str(), i);
 
             m_Textures[i].Bind(i);
         }

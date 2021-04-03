@@ -124,7 +124,6 @@ namespace NT {
         {
             aiString str;
             material->GetTexture(type, i, &str);
-
             bool skip = false;
             for (unsigned int j = 0; j < m_Texture_loaded.size(); j++)
             {

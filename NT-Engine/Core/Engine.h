@@ -39,7 +39,8 @@ namespace NT {
 		// Test Cube
 		Model* sphere;
 		Shader shader;
-		Texture wood;
+		Texture wall;
+		Texture wall_normal;
 		Material material;
 		glm::mat4 projection;
 	};
