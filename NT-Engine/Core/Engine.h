@@ -37,6 +37,7 @@ namespace NT {
 		Camera camera;
 
 		// Test Cube
+		Model* backpack;
 		Model* sphere;
 		Shader shader;
 		Texture wall;

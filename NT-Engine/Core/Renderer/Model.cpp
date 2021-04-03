@@ -8,6 +8,11 @@ namespace NT {
 		LoadModel(path);
 	}
 
+    Model::~Model() 
+    {
+
+    }
+
 	void Model::Draw(Shader& shader)
 	{
         for (unsigned int i = 0; i < m_Meshs.size(); i++)
@@ -47,7 +52,7 @@ namespace NT {
 	{
         std::vector<Vertex> vertices;
         std::vector<unsigned int> indices;
-        std::vector<Texture> textures;
+        std::vector<std::shared_ptr<Texture>> textures;
 
         for (unsigned int i = 0; i < mesh->mNumVertices; i++)
         {
@@ -102,24 +107,24 @@ namespace NT {
         aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 
         // diffuse maps
-        std::vector<Texture> diffuseMaps = LoadMaterialTexture(material, aiTextureType_DIFFUSE, "texture_diffuse");
+        std::vector<std::shared_ptr<Texture>> diffuseMaps = LoadMaterialTexture(material, aiTextureType_DIFFUSE, "texture_diffuse");
         textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
         // specular maps
-        std::vector<Texture> specularMaps = LoadMaterialTexture(material, aiTextureType_SPECULAR, "texture_specular");
+        std::vector<std::shared_ptr<Texture>> specularMaps = LoadMaterialTexture(material, aiTextureType_SPECULAR, "texture_specular");
         textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
         // normal maps
-        std::vector<Texture> normalMaps = LoadMaterialTexture(material, aiTextureType_HEIGHT, "texture_normal");
+        std::vector<std::shared_ptr<Texture>> normalMaps = LoadMaterialTexture(material, aiTextureType_HEIGHT, "texture_normal");
         textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
         // height maps
-        std::vector<Texture> heightMaps = LoadMaterialTexture(material, aiTextureType_AMBIENT, "texture_height");
+        std::vector<std::shared_ptr<Texture>> heightMaps = LoadMaterialTexture(material, aiTextureType_AMBIENT, "texture_height");
         textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
         return Mesh(vertices, indices, textures);
 	}
 
-	std::vector<Texture> Model::LoadMaterialTexture(aiMaterial* material, aiTextureType type, std::string typeName)
+	std::vector<std::shared_ptr<Texture>> Model::LoadMaterialTexture(aiMaterial* material, aiTextureType type, std::string typeName)
 	{
-        std::vector<Texture> textures;
+        std::vector<std::shared_ptr<Texture>> textures;
         for (unsigned int i = 0; i < material->GetTextureCount(type); i++)
         {
             aiString str;
@@ -127,7 +132,7 @@ namespace NT {
             bool skip = false;
             for (unsigned int j = 0; j < m_Texture_loaded.size(); j++)
             {
-                if (std::strcmp(m_Texture_loaded[j].path.data(), str.C_Str()) == 0)
+                if (std::strcmp(m_Texture_loaded[j]->path.data(), str.C_Str()) == 0)
                 {
                     textures.push_back(m_Texture_loaded[j]);
                     skip = true;
@@ -137,11 +142,11 @@ namespace NT {
             if (!skip)
             {
                 TextureInfo info;
-                Texture texture;
+                std::shared_ptr<Texture> texture = std::make_shared<Texture>();
                 std::string filePath = m_Directory + "/" + str.C_Str();
-                texture.Generate(filePath.c_str(), info);
-                texture.type = typeName;
-                texture.path = str.C_Str();
+                texture->Generate(filePath.c_str(), info);
+                texture->type = typeName;
+                texture->path = str.C_Str();
                 textures.push_back(texture);
                 m_Texture_loaded.push_back(texture);
             }

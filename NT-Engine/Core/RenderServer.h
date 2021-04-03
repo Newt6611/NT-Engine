@@ -25,13 +25,15 @@ namespace NT {
 		Model* CreateCube();
 		Model* CreateSphere();
 		Model* CreatePlane();
-
+		Model* CreateModel(const char* path, bool gama);
 	private:
 		static RenderServer* m_Instance;
 
 		Model* cube;
 		Model* sphere;
 		Model* plane;
+
+		std::vector<Model*> models;
 	};
 
 }

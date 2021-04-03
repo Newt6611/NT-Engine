@@ -2,7 +2,7 @@
 
 Texture::~Texture()
 {
-	//glDeleteTextures(1, &id);
+	glDeleteTextures(1, &id);
 }
 
 void Texture::Generate(const char* fileName, TextureInfo texInfo)

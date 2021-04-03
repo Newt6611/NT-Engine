@@ -7,6 +7,7 @@
 #include <assimp/postprocess.h>
 
 #include "Texture2D.h"
+#include <memory>
 
 namespace NT {
 	class Model 
@@ -14,7 +15,7 @@ namespace NT {
 	public:
 		Model() = default;
 		Model(const char* path, bool gama);
-		~Model() {}
+		~Model();
 
 		void Draw(Shader& shader);
 
@@ -22,9 +23,9 @@ namespace NT {
 		void LoadModel(std::string path);
 		void ProcessNode(aiNode* node, const aiScene* scene);
 		Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene);
-		std::vector<Texture> LoadMaterialTexture(aiMaterial* material, aiTextureType type, std::string typeName);
+		std::vector<std::shared_ptr<Texture>> LoadMaterialTexture(aiMaterial* material, aiTextureType type, std::string typeName);
 	private:
-		std::vector<Texture> m_Texture_loaded;
+		std::vector<std::shared_ptr<Texture>> m_Texture_loaded;
 		std::vector<Mesh> m_Meshs;
 		std::string m_Directory;
 		bool gammaCorrection;

@@ -8,7 +8,7 @@
 #include <vector>
 #include <iostream>
 #include <string>
-
+#include <memory>
 
 // Model Loading From LearnOpenGL Website
 
@@ -26,7 +26,7 @@ namespace NT {
 	class Mesh 
 	{
 	public:
-		Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
+		Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<std::shared_ptr<Texture>> textures);
 		
 		void Draw(Shader& shader);
 	
@@ -38,6 +38,6 @@ namespace NT {
 
 		std::vector<Vertex> m_Vertices;
 		std::vector<unsigned int> m_Indices;
-		std::vector<Texture> m_Textures;
+		std::vector<std::shared_ptr<Texture>> m_Textures;
 	};
 }

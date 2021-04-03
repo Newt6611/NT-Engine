@@ -3,7 +3,7 @@
 
 namespace NT {
 
-    Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures)
+    Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<std::shared_ptr<Texture>> textures)
     {
         this->m_Vertices = vertices;
         this->m_Indices = indices;
@@ -53,7 +53,7 @@ namespace NT {
         for (unsigned int i = 0; i < m_Textures.size(); i++)
         {
             std::string number;
-            std::string name = m_Textures[i].type;
+            std::string name = m_Textures[i]->type;
             if (name == "texture_diffuse")
                 number = std::to_string(diffuseNr++);
             else if (name == "texture_specular")
@@ -66,7 +66,7 @@ namespace NT {
 
             shader.SetInt(("material." + name + number).c_str(), i);
 
-            m_Textures[i].Bind(i);
+            m_Textures[i]->Bind(i);
         }
         glBindVertexArray(m_Vao);
         glDrawElements(GL_TRIANGLES, m_Indices.size(), GL_UNSIGNED_INT, 0);

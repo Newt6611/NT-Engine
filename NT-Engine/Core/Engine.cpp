@@ -26,6 +26,7 @@ namespace NT {
 
 
 		// Test
+		backpack = render_server.CreateModel("res/Model/backpack/backpack.obj", false);
 		sphere = render_server.CreateSphere();
 		TextureInfo info;
 		wall.Generate("res/Texture/brickwall.jpg", info);
@@ -77,9 +78,7 @@ namespace NT {
 			
 			wall.Bind(0);
 			wall_normal.Bind(1);
-
 			sphere->Draw(shader);
-
 
 			glfwSwapBuffers(display_server.window);
 			glfwPollEvents();

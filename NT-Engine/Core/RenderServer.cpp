@@ -21,6 +21,8 @@ namespace NT {
         delete cube;
         delete sphere;
         delete plane;
+        for (int i = 0; i < models.size(); i++)
+            delete models[i];
     }
 
 
@@ -49,6 +51,12 @@ namespace NT {
     Model* RenderServer::CreatePlane()
     {
         return plane;
+    }
+
+    Model* RenderServer::CreateModel(const char* filePath, bool gama = false)
+    {
+        Model* model = new Model(filePath, gama);
+        return model;
     }
 }
 
