@@ -71,7 +71,7 @@ namespace NT {
         glBindVertexArray(m_Vao);
         glDrawElements(GL_TRIANGLES, m_Indices.size(), GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
-
+        shader.UnBind();
         glActiveTexture(GL_TEXTURE0);
 	}
 }

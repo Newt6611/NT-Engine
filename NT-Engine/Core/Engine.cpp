@@ -1,26 +1,27 @@
 #include "Engine.h"
 
-namespace NT {
+// Todo Servers Singletong 
 
+namespace NT {
 	bool Engine::window_close;
 
 	bool Engine::Init(unsigned int width, unsigned int height)
 	{
-		// Todo: Make Camera More Scence //
-		camera = Camera({ 0,0,10 }, 0, 180);
-		
-
-
-
 		// Init Servers
 		if (!display_server.Init(width, height))
 			return false;
 
+
+		// Todo: Make Camera More Scence //
+		camera = Camera({ 0,0,10 }, 0, 180);
+
+
+
 		input_server.Init(display_server.window, &camera);
 
-		scene_server.Init();
-
 		render_server.Init();
+
+		scene_server.Init();
 
 		window_close = false;
 
@@ -32,9 +33,10 @@ namespace NT {
 		wall.Generate("res/Texture/brickwall.jpg", info);
 		wall_normal.Generate("res/Texture/brickwall_normal.jpg", info);
 
+		skybox = new Skybox(faces);
 		render_server.CreateShader(shader, "res/Shader/default.vert.glsl", "res/Shader/default.frag.glsl", NULL);
-		projection = glm::perspective(glm::radians(45.0f), (float)display_server.GetWindowWidth() / display_server.GetWindowHeight(), 0.1f, 100.0f);
-
+		render_server.CreateShader(skybox_shader, "res/Shader/skybox.vert.glsl", "res/Shader/skybox.frag.glsl", NULL);
+		
 		return true;
 	}
 
@@ -57,13 +59,12 @@ namespace NT {
 			scene_server.Render();
 
 
-
 			// Render Test
 			r += 1 * delta;
 			camera.Update(delta);
 
 			shader.Bind();
-			shader.SetMatrix4("projection", projection);
+			shader.SetMatrix4("projection", camera.GetProjection());
 			shader.SetMatrix4("view", camera.GetViewMatrix());
 			glm::mat4 model = glm::rotate(glm::mat4(1), r, glm::vec3(0,1,0));
 			shader.SetMatrix4("model", model);
@@ -79,6 +80,8 @@ namespace NT {
 			wall.Bind(0);
 			wall_normal.Bind(1);
 			sphere->Draw(shader);
+			
+			skybox->Draw(skybox_shader, camera);
 
 			glfwSwapBuffers(display_server.window);
 			glfwPollEvents();

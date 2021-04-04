@@ -92,6 +92,7 @@
     <ClCompile Include="Core\Renderer\Mesh.cpp" />
     <ClCompile Include="Core\Renderer\Model.cpp" />
     <ClCompile Include="Core\Renderer\Shader.cpp" />
+    <ClCompile Include="Core\Renderer\Skybox.cpp" />
     <ClCompile Include="Core\Renderer\Texture2D.cpp" />
     <ClCompile Include="Core\RenderServer.cpp" />
     <ClCompile Include="Core\Scene.cpp" />
@@ -110,6 +111,7 @@
     <ClInclude Include="Core\Renderer\Mesh.h" />
     <ClInclude Include="Core\Renderer\Model.h" />
     <ClInclude Include="Core\Renderer\Shader.h" />
+    <ClInclude Include="Core\Renderer\Skybox.h" />
     <ClInclude Include="Core\Renderer\Texture2D.h" />
     <ClInclude Include="Core\RenderServer.h" />
     <ClInclude Include="Core\Scene.h" />
@@ -119,6 +121,8 @@
   <ItemGroup>
     <None Include="res\Shader\default.frag.glsl" />
     <None Include="res\Shader\default.vert.glsl" />
+    <None Include="res\Shader\skybox.frag.glsl" />
+    <None Include="res\Shader\skybox.vert.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

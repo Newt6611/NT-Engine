@@ -60,6 +60,9 @@
     <ClCompile Include="Core\Renderer\Model.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="Core\Renderer\Skybox.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\DisplayServer.h">
@@ -104,9 +107,14 @@
     <ClInclude Include="Core\Renderer\Model.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
+    <ClInclude Include="Core\Renderer\Skybox.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\Shader\default.vert.glsl" />
     <None Include="res\Shader\default.frag.glsl" />
+    <None Include="res\Shader\skybox.vert.glsl" />
+    <None Include="res\Shader\skybox.frag.glsl" />
   </ItemGroup>
 </Project>

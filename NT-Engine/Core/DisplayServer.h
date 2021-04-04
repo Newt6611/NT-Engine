@@ -7,6 +7,10 @@ namespace NT {
 	class DisplayServer 
 	{
 	public:
+		DisplayServer() = default;
+		DisplayServer(const DisplayServer&) = delete;
+		static DisplayServer& GetInstance();
+
 		bool Init(unsigned int width, unsigned int height);
 		
 		void ShutDown();
@@ -23,6 +27,7 @@ namespace NT {
 		GLFWwindow* window;
 
 	private:
+		static DisplayServer* m_Instance;
 		unsigned int m_Win_Width;
 		unsigned int m_Win_Height;
 	};

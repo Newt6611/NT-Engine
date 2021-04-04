@@ -5,6 +5,7 @@
 #include "Renderer/Mesh.h"
 #include "Camera.h"
 #include "Renderer/Model.h"
+#include "Renderer/Skybox.h"
 
 namespace NT {
 

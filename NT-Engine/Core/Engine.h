@@ -40,9 +40,20 @@ namespace NT {
 		Model* backpack;
 		Model* sphere;
 		Shader shader;
+		Shader skybox_shader;
 		Texture wall;
 		Texture wall_normal;
 		Material material;
-		glm::mat4 projection;
+
+
+		Skybox* skybox;
+		std::vector<const char*> faces = {
+			"res/Skybox/right.jpg",
+			"res/Skybox/left.jpg",
+			"res/Skybox/top.jpg",
+			"res/Skybox/bottom.jpg",
+			"res/Skybox/front.jpg",
+			"res/Skybox/back.jpg",
+		};
 	};
 }

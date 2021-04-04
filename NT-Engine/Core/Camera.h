@@ -15,6 +15,7 @@ namespace NT {
 		~Camera() {}
 
 		glm::mat4 GetViewMatrix() const;
+		glm::mat4 GetProjection() const;
 
 		void ProcessCursorMovement(float deltaX, float deltaY);
 
@@ -32,6 +33,7 @@ namespace NT {
 		glm::vec3 up;
 
 	private:
+		glm::mat4 m_Projection;
 		glm::vec3 m_Forward;
 		float yaw, pitch;
 	};

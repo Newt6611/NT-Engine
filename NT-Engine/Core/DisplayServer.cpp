@@ -7,6 +7,20 @@
 
 
 namespace NT {
+
+	DisplayServer* DisplayServer::m_Instance = new DisplayServer();
+	
+	DisplayServer& DisplayServer::GetInstance()
+	{
+		if (m_Instance == nullptr)
+		{
+			m_Instance = new DisplayServer();
+			return *m_Instance;
+		}
+		else 
+			return *m_Instance;
+	}
+
 	bool DisplayServer::Init(unsigned int width, unsigned int height)
 	{
 		m_Win_Width = width;
