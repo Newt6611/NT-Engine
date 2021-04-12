@@ -1,11 +1,16 @@
 #include "RenderServer.h"
 
 namespace NT {
-    RenderServer* RenderServer::m_Instance = new RenderServer();
+    RenderServer* RenderServer::m_Instance = 0;
 
-    RenderServer& RenderServer::GetInstance()
+    RenderServer* RenderServer::GetInstance()
     {
-        return *m_Instance;
+        if (m_Instance == 0)
+        {
+            m_Instance = new RenderServer;
+            return m_Instance;
+        }
+        return m_Instance;
     }
 
 

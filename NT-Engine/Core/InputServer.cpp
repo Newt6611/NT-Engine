@@ -9,6 +9,18 @@ namespace NT {
 	double InputServer::lastX;
 	double InputServer::lastY;
 
+	InputServer* InputServer::m_Instance = 0;
+
+	InputServer* InputServer::GetInstance()
+	{
+		if (m_Instance == 0)
+		{
+			m_Instance = new InputServer();
+			return m_Instance;
+		}
+		return m_Instance;
+	}
+
 	void InputServer::Init(GLFWwindow* window, Camera* viewCamera)
 	{
 		glfwSetKeyCallback(window, InputServer::KeyCallBack);

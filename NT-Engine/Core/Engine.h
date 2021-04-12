@@ -20,17 +20,17 @@ namespace NT {
 		void Run();
 		void ShutDown();
 
-
+		~Engine();
 	public:
 		static bool window_close;
 
 	private:
 		float last_time;
 
-		DisplayServer display_server;
-		InputServer input_server;
+		DisplayServer* display_server = nullptr;
+		RenderServer* render_server = nullptr;
+		InputServer* input_server = nullptr;
 		SceneServer scene_server;
-		RenderServer render_server;
 
 
 	private:

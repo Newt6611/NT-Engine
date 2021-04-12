@@ -12,9 +12,9 @@ namespace NT {
 	class RenderServer 
 	{
 	public:
-		RenderServer() = default;
+		
 		RenderServer(const RenderServer&) = delete;
-		static RenderServer& GetInstance();
+		static RenderServer* GetInstance();
 
 		void Init();
 		void ShutDown();
@@ -28,6 +28,8 @@ namespace NT {
 		Model* CreatePlane();
 		Model* CreateModel(const char* path, bool gama);
 	private:
+		RenderServer() = default;
+
 		static RenderServer* m_Instance;
 
 		Model* cube;

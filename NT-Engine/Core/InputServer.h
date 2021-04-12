@@ -10,14 +10,19 @@ namespace NT {
 	class InputServer
 	{
 	public:
+		InputServer(const InputServer&) = delete;
+		static InputServer* GetInstance();
+
 		void Init(GLFWwindow* window, Camera* viewCamera);
 		void ShutDown();
 
 	private:
+		InputServer() = default;
 		static void KeyCallBack(GLFWwindow* window, int key, int scancode, int action, int mods);
 		static void MousePositionCallBack(GLFWwindow* window, double xPos, double yPos);
 
 	private:
+		static InputServer* m_Instance;
 		static Camera* viewCamera;
 		static double lastX, lastY;
 		static bool firstMouse;

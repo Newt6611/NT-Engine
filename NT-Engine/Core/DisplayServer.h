@@ -7,18 +7,18 @@ namespace NT {
 	class DisplayServer 
 	{
 	public:
-		DisplayServer() = default;
 		DisplayServer(const DisplayServer&) = delete;
-		static DisplayServer& GetInstance();
+		static DisplayServer* GetInstance();
 
 		bool Init(unsigned int width, unsigned int height);
 		
 		void ShutDown();
 
-		inline unsigned int GetWindowWidth() const { return m_Win_Width; }
-		inline unsigned int GetWindowHeight() const { return m_Win_Height; }
+		inline float GetWindowWidth() const { return static_cast<float>(m_Win_Width); }
+		inline float GetWindowHeight() const { return static_cast<float>(m_Win_Height); }
 
 	private:
+		DisplayServer() = default;
 		bool InitOpenGL();
 		bool CreateWindow();
 

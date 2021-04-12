@@ -14,7 +14,7 @@ namespace NT {
 		this->right = glm::normalize(glm::cross(m_Forward, world_up));
 		this->up = glm::normalize(glm::cross(m_Forward, right));
 		
-		m_Projection = glm::perspective(glm::radians(45.0f), 1280.f / 760.f, 0.1f, 100.0f);
+		m_Projection = glm::perspective(glm::radians(45.0f), DisplayServer::GetInstance()->GetWindowWidth() / DisplayServer::GetInstance()->GetWindowHeight(), 0.1f, 100.0f);
 	}
 
 	Camera::Camera(glm::vec3 position, float pitch, float yaw)
@@ -25,7 +25,7 @@ namespace NT {
 		this->yaw = glm::radians(yaw);
 
 		UpdateCameraVector();
-		m_Projection = glm::perspective(glm::radians(45.0f), 1280.f / 760.f, 0.1f, 100.0f);
+		m_Projection = glm::perspective(glm::radians(45.0f), DisplayServer::GetInstance()->GetWindowWidth() / DisplayServer::GetInstance()->GetWindowHeight(), 0.1f, 100.0f);
 	}
 
 	glm::mat4 Camera::GetViewMatrix() const

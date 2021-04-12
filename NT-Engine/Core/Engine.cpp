@@ -1,25 +1,28 @@
 #include "Engine.h"
 
-// Todo Servers Singletong 
 
 namespace NT {
 	bool Engine::window_close;
 
+	// must init display server before camera
 	bool Engine::Init(unsigned int width, unsigned int height)
 	{
 		// Init Servers
-		if (!display_server.Init(width, height))
+		display_server = DisplayServer::GetInstance();
+		render_server = RenderServer::GetInstance();
+		input_server = InputServer::GetInstance();
+		
+		if (!display_server->Init(width, height))
 			return false;
-
 
 		// Todo: Make Camera More Scence //
 		camera = Camera({ 0,0,10 }, 0, 180);
 
+		render_server->Init();
 
 
-		input_server.Init(display_server.window, &camera);
+		input_server->Init(display_server->window, &camera);
 
-		render_server.Init();
 
 		scene_server.Init();
 
@@ -27,15 +30,15 @@ namespace NT {
 
 
 		// Test
-		backpack = render_server.CreateModel("res/Model/backpack/backpack.obj", false);
-		sphere = render_server.CreateSphere();
+		backpack = render_server->CreateModel("res/Model/backpack/backpack.obj", false);
+		sphere = render_server->CreateSphere();
 		TextureInfo info;
 		wall.Generate("res/Texture/brickwall.jpg", info);
 		wall_normal.Generate("res/Texture/brickwall_normal.jpg", info);
 
 		skybox = new Skybox(faces);
-		render_server.CreateShader(shader, "res/Shader/default.vert.glsl", "res/Shader/default.frag.glsl", NULL);
-		render_server.CreateShader(skybox_shader, "res/Shader/skybox.vert.glsl", "res/Shader/skybox.frag.glsl", NULL);
+		render_server->CreateShader(shader, "res/Shader/default.vert.glsl", "res/Shader/default.frag.glsl", NULL);
+		render_server->CreateShader(skybox_shader, "res/Shader/skybox.vert.glsl", "res/Shader/skybox.frag.glsl", NULL);
 		
 		return true;
 	}
@@ -83,7 +86,7 @@ namespace NT {
 			
 			skybox->Draw(skybox_shader, camera);
 
-			glfwSwapBuffers(display_server.window);
+			glfwSwapBuffers(display_server->window);
 			glfwPollEvents();
 		}
 	}
@@ -92,9 +95,17 @@ namespace NT {
 	{
 		glfwTerminate();
 
-		display_server.ShutDown();
-		input_server.ShutDown();
+		display_server->ShutDown();
+		render_server->ShutDown();
+		input_server->ShutDown();
 		scene_server.ShutDown();
-		render_server.ShutDown();
+	}
+
+
+	Engine::~Engine()
+	{
+		delete display_server;
+		delete render_server;
+		delete input_server;
 	}
 }

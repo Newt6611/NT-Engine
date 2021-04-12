@@ -8,17 +8,17 @@
 
 namespace NT {
 
-	DisplayServer* DisplayServer::m_Instance = new DisplayServer();
+	DisplayServer* DisplayServer::m_Instance = 0;
 	
-	DisplayServer& DisplayServer::GetInstance()
+	DisplayServer* DisplayServer::GetInstance()
 	{
-		if (m_Instance == nullptr)
+		if (m_Instance == 0)
 		{
 			m_Instance = new DisplayServer();
-			return *m_Instance;
+			return m_Instance;
 		}
-		else 
-			return *m_Instance;
+
+		return m_Instance;
 	}
 
 	bool DisplayServer::Init(unsigned int width, unsigned int height)
