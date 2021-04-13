@@ -24,7 +24,7 @@ void main()
 	vs_out.TexCoords = texCoords;
 
 	vec3 N = normalize((model * vec4(normal, 0)).xyz);
-	vec3 T = normalize((model*vec4(tangent,0)).xyz);
+	vec3 T = normalize((model * vec4(tangent,0)).xyz);
 	T = normalize(T - dot(T, N) * N);
 	vec3 B = cross(T, N);
 	vs_out.TBN = mat3(T, B, N);

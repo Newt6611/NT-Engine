@@ -6,6 +6,7 @@
 #include "Camera.h"
 #include "Renderer/Model.h"
 #include "Renderer/Skybox.h"
+#include "Renderer/DirectionalLight.h"
 
 namespace NT {
 

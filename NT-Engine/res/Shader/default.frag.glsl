@@ -1,6 +1,5 @@
 #version 450 core
 
-
 in VS_OUT {
 	vec3 FragPos;
 	vec3 Normal;
@@ -18,13 +17,16 @@ struct Material {
 	float shininess;
 };
 
+struct DirectionalLight{
+	vec3 color;
+	vec3 direction;
+};
 
 uniform Material material;
 
-uniform vec3 viewPos;
+uniform DirectionalLight directional_light;
 
-uniform vec3 lightColor;
-uniform vec3 lightDir;
+uniform vec3 viewPos;
 
 out vec4 FragColor;
 
@@ -36,19 +38,18 @@ void main()
 	normal = fs_in.TBN * normal;
 
 	vec3 viewDir = normalize(viewPos - fs_in.FragPos);
-	vec3 lightRefl = normalize(reflect(-lightDir, normal));
+	vec3 lightRefl = normalize(reflect(-directional_light.direction, normal));
 	
-	vec3 ambient = texture(material.texture_diffuse1, fs_in.TexCoords).rgb * lightColor;
+	vec3 ambient = texture(material.texture_diffuse1, fs_in.TexCoords).rgb * directional_light.color;
 
-	float diff = max(dot(normal, normalize(lightDir)), 0);
+	float diff = max(dot(normal, normalize(directional_light.direction)), 0);
 	vec3 diffuse = diff * texture(material.texture_diffuse1, fs_in.TexCoords).rgb;
 
-
-	vec3 halfWay = normalize(lightDir + viewDir);
+	vec3 halfWay = normalize(directional_light.direction + viewDir);
 	float spec = pow(max(dot(normal, halfWay), 0), material.shininess);
-	vec3 specular = vec3(1) * spec;
+	vec3 specular = vec3(1) * spec * vec3(texture(material.texture_specular1, fs_in.TexCoords));
 
 	vec4 result = vec4(ambient + diffuse + specular, 1);
 
-	FragColor = vec4(normal,1);
+	FragColor = result;
 }

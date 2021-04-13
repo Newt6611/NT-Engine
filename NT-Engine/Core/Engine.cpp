@@ -44,6 +44,8 @@ namespace NT {
 		render_server->CreateShader(shader, "res/Shader/default.vert.glsl", "res/Shader/default.frag.glsl", NULL);
 		render_server->CreateShader(skybox_shader, "res/Shader/skybox.vert.glsl", "res/Shader/skybox.frag.glsl", NULL);
 		
+		d_light = DirectionalLight({ 1, 1, 0 });
+
 		return true;
 	}
 
@@ -73,12 +75,12 @@ namespace NT {
 			shader.Bind();
 			shader.SetMatrix4("projection", camera.GetProjection());
 			shader.SetMatrix4("view", camera.GetViewMatrix());
-			glm::mat4 model = glm::rotate(glm::mat4(1), r, glm::vec3(0,1,0));
+			glm::mat4 model = glm::rotate(glm::mat4(1), r, glm::vec3(0, 1, 0));
 			shader.SetMatrix4("model", model);
 
 			shader.SetVector3("viewPos", camera.GetPosition());
-			shader.SetVector3("lightColor", { 1, 1, 1 });
-			shader.SetVector3("lightDir", { 1, 1, 0 });
+			shader.SetVector3("directional_light.color", d_light.GetColor());
+			shader.SetVector3("directional_light.direction", d_light.GetDiection());
 
 			shader.SetFloat("material.shininess", material.shininess);
 			//shader.SetInt("material.texture_diffuse1", 0);
@@ -88,9 +90,7 @@ namespace NT {
 			//wall_normal.Bind(1);
 			//sphere->Draw(shader);
 			
-
 			backpack->Draw(shader);
-
 
 
 			skybox->Draw(skybox_shader, camera);

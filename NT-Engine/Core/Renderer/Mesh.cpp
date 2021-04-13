@@ -46,10 +46,12 @@ namespace NT {
 
 	void Mesh::Draw(Shader& shader)
 	{
+        shader.Bind();
         unsigned int diffuseNr = 1;
         unsigned int specularNr = 1;
         unsigned int normalNr = 1;
         unsigned int heightNr = 1;
+        
         for (unsigned int i = 0; i < m_Textures.size(); i++)
         {
             std::string number;
@@ -61,15 +63,16 @@ namespace NT {
             else if (name == "texture_normal")
                 number = std::to_string(normalNr++);
             else if (name == "texture_height")
-                number = std::to_string(heightNr++); 
-            std::cout << ("material." + name + number).c_str() << std::endl;
+                number = std::to_string(heightNr++);
+
             shader.SetInt(("material." + name + number).c_str(), i);
             m_Textures[i]->Bind(i);
         }
+
         glBindVertexArray(m_Vao);
         glDrawElements(GL_TRIANGLES, m_Indices.size(), GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
         shader.UnBind();
-        glActiveTexture(GL_TEXTURE0);
+        //glActiveTexture(GL_TEXTURE0);
 	}
 }

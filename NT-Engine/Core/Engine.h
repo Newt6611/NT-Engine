@@ -7,7 +7,6 @@
 #include "InputServer.h"
 #include "SceneServer.h"
 #include "RenderServer.h"
-#include "Camera.h"
 #include "Renderer/Material.h"
 #include "Renderer/Model.h"
 
@@ -40,6 +39,8 @@ namespace NT {
 		// Test Cube
 		Model* backpack;
 		Model* sphere;
+
+		DirectionalLight d_light;
 
 		Shader shader;
 		Shader skybox_shader;

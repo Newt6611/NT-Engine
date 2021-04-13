@@ -63,6 +63,9 @@
     <ClCompile Include="Core\Renderer\Skybox.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="Core\Renderer\DirectionalLight.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\DisplayServer.h">
@@ -108,6 +111,9 @@
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="Core\Renderer\Skybox.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Renderer\DirectionalLight.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>

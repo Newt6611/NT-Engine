@@ -88,6 +88,7 @@
     <ClCompile Include="Core\DisplayServer.cpp" />
     <ClCompile Include="Core\Engine.cpp" />
     <ClCompile Include="Core\InputServer.cpp" />
+    <ClCompile Include="Core\Renderer\DirectionalLight.cpp" />
     <ClCompile Include="Core\Renderer\Material.cpp" />
     <ClCompile Include="Core\Renderer\Mesh.cpp" />
     <ClCompile Include="Core\Renderer\Model.cpp" />
@@ -107,6 +108,7 @@
     <ClInclude Include="Core\Engine.h" />
     <ClInclude Include="Core\InputServer.h" />
     <ClInclude Include="Core\NT.h" />
+    <ClInclude Include="Core\Renderer\DirectionalLight.h" />
     <ClInclude Include="Core\Renderer\Material.h" />
     <ClInclude Include="Core\Renderer\Mesh.h" />
     <ClInclude Include="Core\Renderer\Model.h" />
