@@ -4,14 +4,18 @@
 namespace NT {
 	bool Engine::window_close;
 
+	Engine::Engine()
+	{
+		// Get Servers
+		display_server = DisplayServer::GetInstance();
+		render_server = RenderServer::GetInstance();
+		input_server = InputServer::GetInstance();
+	}
+
 	// must init display server before camera
 	bool Engine::Init(unsigned int width, unsigned int height)
 	{
 		// Init Servers
-		display_server = DisplayServer::GetInstance();
-		render_server = RenderServer::GetInstance();
-		input_server = InputServer::GetInstance();
-		
 		if (!display_server->Init(width, height))
 			return false;
 
@@ -73,17 +77,22 @@ namespace NT {
 			shader.SetMatrix4("model", model);
 
 			shader.SetVector3("viewPos", camera.GetPosition());
-			shader.SetVector3("lightColor", { 1,1,1 });
-			shader.SetVector3("lightDir", { 1, 1, 0});
+			shader.SetVector3("lightColor", { 1, 1, 1 });
+			shader.SetVector3("lightDir", { 1, 1, 0 });
 
 			shader.SetFloat("material.shininess", material.shininess);
-			shader.SetInt("material.texture_diffuse1", 0);
-			shader.SetInt("material.texture_normal1", 1);
+			//shader.SetInt("material.texture_diffuse1", 0);
+			//shader.SetInt("material.texture_normal1", 1);
 			
-			wall.Bind(0);
-			wall_normal.Bind(1);
-			sphere->Draw(shader);
+			//wall.Bind(0);
+			//wall_normal.Bind(1);
+			//sphere->Draw(shader);
 			
+
+			backpack->Draw(shader);
+
+
+
 			skybox->Draw(skybox_shader, camera);
 
 			glfwSwapBuffers(display_server->window);

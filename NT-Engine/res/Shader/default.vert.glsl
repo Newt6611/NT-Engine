@@ -29,5 +29,5 @@ void main()
 	vec3 B = cross(T, N);
 	vs_out.TBN = mat3(T, B, N);
 
-	gl_Position = projection * view *model *vec4(position, 1);
+	gl_Position = projection * view * model * vec4(position, 1);
 }

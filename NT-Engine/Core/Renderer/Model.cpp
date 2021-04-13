@@ -9,9 +9,7 @@ namespace NT {
 	}
 
     Model::~Model() 
-    {
-
-    }
+    { }
 
 	void Model::Draw(Shader& shader)
 	{

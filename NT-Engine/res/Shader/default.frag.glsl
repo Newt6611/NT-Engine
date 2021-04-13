@@ -50,5 +50,5 @@ void main()
 
 	vec4 result = vec4(ambient + diffuse + specular, 1);
 
-	FragColor = result;
+	FragColor = vec4(normal,1);
 }

@@ -59,13 +59,11 @@ namespace NT {
             else if (name == "texture_specular")
                 number = std::to_string(specularNr++); 
             else if (name == "texture_normal")
-                number = std::to_string(normalNr++); 
+                number = std::to_string(normalNr++);
             else if (name == "texture_height")
                 number = std::to_string(heightNr++); 
-
-
+            std::cout << ("material." + name + number).c_str() << std::endl;
             shader.SetInt(("material." + name + number).c_str(), i);
-
             m_Textures[i]->Bind(i);
         }
         glBindVertexArray(m_Vao);

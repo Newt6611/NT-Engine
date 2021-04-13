@@ -16,6 +16,7 @@ namespace NT {
 	class Engine
 	{
 	public:
+		Engine();
 		bool Init(unsigned int width, unsigned int height);
 		void Run();
 		void ShutDown();
@@ -39,8 +40,10 @@ namespace NT {
 		// Test Cube
 		Model* backpack;
 		Model* sphere;
+
 		Shader shader;
 		Shader skybox_shader;
+		
 		Texture wall;
 		Texture wall_normal;
 		Material material;
