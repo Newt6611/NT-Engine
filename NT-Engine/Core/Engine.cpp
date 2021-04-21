@@ -33,9 +33,17 @@ namespace NT {
 		window_close = false;
 
 
+
+
+		// Learn FrameBuffer
+		glGenFramebuffers(1, &fbo);
+
+
 		// Test
 		backpack = render_server->CreateModel("res/Model/backpack/backpack.obj", false);
 		sphere = render_server->CreateSphere();
+		man = render_server->CreateModel("res/Model/nanosuit/nanosuit.obj", false);
+		
 		TextureInfo info;
 		wall.Generate("res/Texture/brickwall.jpg", info);
 		wall_normal.Generate("res/Texture/brickwall_normal.jpg", info);
@@ -75,22 +83,31 @@ namespace NT {
 			shader.Bind();
 			shader.SetMatrix4("projection", camera.GetProjection());
 			shader.SetMatrix4("view", camera.GetViewMatrix());
-			glm::mat4 model = glm::rotate(glm::mat4(1), r, glm::vec3(0, 1, 0));
-			shader.SetMatrix4("model", model);
+			glm::mat4 sphere_model = glm::translate(glm::mat4(1), { 0 ,0, 0 }) * glm::rotate(glm::mat4(1), r, glm::vec3(0, 1, 0));
+			shader.SetMatrix4("model", sphere_model);
 
 			shader.SetVector3("viewPos", camera.GetPosition());
 			shader.SetVector3("directional_light.color", d_light.GetColor());
 			shader.SetVector3("directional_light.direction", d_light.GetDiection());
 
 			shader.SetFloat("material.shininess", material.shininess);
-			//shader.SetInt("material.texture_diffuse1", 0);
-			//shader.SetInt("material.texture_normal1", 1);
+			shader.SetInt("material.texture_diffuse1", 0);
+			shader.SetInt("material.texture_normal1", 1);
 			
-			//wall.Bind(0);
-			//wall_normal.Bind(1);
-			//sphere->Draw(shader);
-			
+			wall.Bind(0);
+			wall_normal.Bind(1);
+			sphere->Draw(shader);
+
+			shader.Bind();
+			glm::mat4 back_model = glm::translate(glm::mat4(1), { 7 ,0, 0 }) * glm::rotate(glm::mat4(1), r, glm::vec3(0, 1, 0));
+			shader.SetMatrix4("model", back_model);
 			backpack->Draw(shader);
+
+
+			shader.Bind();
+			glm::mat4 man_model = glm::translate(glm::mat4(1), { 15 ,0, 0 }) * glm::rotate(glm::mat4(1), r, glm::vec3(0, 1, 0)) * glm::scale(glm::mat4(1), {0.5, 0.5, 0.5});
+			shader.SetMatrix4("model", man_model);
+			man->Draw(shader);
 
 
 			skybox->Draw(skybox_shader, camera);

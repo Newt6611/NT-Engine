@@ -36,9 +36,21 @@ namespace NT {
 	private:
 		Camera camera;
 
+
+
+
+		// Learn FrameBuffer
+		unsigned int fbo;
+
+
+
+
+
+
 		// Test Cube
 		Model* backpack;
 		Model* sphere;
+		Model* man;
 
 		DirectionalLight d_light;
 
